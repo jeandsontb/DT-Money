@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Modal from 'react-modal';
 
 import S from './styled';
 import closeImg from '../../assets/close.svg';
 import incomeImg from '../../assets/income.svg';
 import outcomeImg from '../../assets/outcome.svg';
+import { api } from '../../services/api';
 
 interface newTransactionModalProps {
   isOpen: boolean;
@@ -14,6 +15,22 @@ interface newTransactionModalProps {
 const NewTransactionModal = ({isOpen, onRequestClose}: newTransactionModalProps) => {
 
   const [ type, setType ] = useState('deposit');
+  const [ title, setTitle ] = useState('');
+  const [ value, setValue ] = useState(0);
+  const [ category, setCategory ] = useState('');
+
+  const handleCreateNewTransaction = (event: FormEvent) => {
+    event.preventDefault();
+    const data = {
+      type,
+      title,
+      value,
+      category
+    };
+
+    api.post('/transactions', data);
+
+  }
 
   return (
     <Modal 
@@ -26,17 +43,21 @@ const NewTransactionModal = ({isOpen, onRequestClose}: newTransactionModalProps)
         <img src={closeImg} alt="Fechar modal" />
       </button>
 
-      <S.Container>
+      <S.Container onSubmit={handleCreateNewTransaction} >
         <h2>Cadastrar</h2>
 
         <input 
           type="text"
           placeholder='Título'
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         /> 
 
         <input 
           type="number"
           placeholder='Valor'
+          value={value}
+          onChange={(e) => setValue(Number(e.target.value))}
         /> 
 
         <S.TransactionTypeContainer>
@@ -44,6 +65,7 @@ const NewTransactionModal = ({isOpen, onRequestClose}: newTransactionModalProps)
             type='button'
             onClick={() => setType('deposit')}
             isActive={type === 'deposit'}
+            activeColor="green"
           >
             <img src={incomeImg} alt="Entrada" />
             <span>Entrada</span>
@@ -53,6 +75,7 @@ const NewTransactionModal = ({isOpen, onRequestClose}: newTransactionModalProps)
             type='button'
             onClick={() => setType('withdraw')}
             isActive={type === 'withdraw'}
+            activeColor="red"
           >
             <img src={outcomeImg} alt="Saída" />
             <span>Entrada</span>
@@ -61,6 +84,8 @@ const NewTransactionModal = ({isOpen, onRequestClose}: newTransactionModalProps)
 
         <input 
           placeholder='Categoria'
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
         />    
 
         <button type='submit'>

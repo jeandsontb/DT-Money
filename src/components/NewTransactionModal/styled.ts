@@ -1,5 +1,10 @@
 import styled from 'styled-components';
-import { darken } from 'polished';
+import { darken, transparentize } from 'polished';
+
+const colors = {
+  green: '#33CC95',
+  red: '#E52E4D'
+}
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -56,11 +61,13 @@ export default {
     gap: 0.5rem;    
   `,
 
-  RadioBox: styled.button<{isActive: boolean}>`
+  RadioBox: styled.button<{isActive: boolean, activeColor: 'green' | 'red'}>`
     height: 4rem;
     border: 1ps solid #d7d7d7;
     border-radius: 0.25rem;
-    background: ${({isActive}) => isActive ? '#ccc' : 'transparent'};
+    background: ${({isActive, activeColor}) => isActive 
+      ? transparentize(0.9, colors[activeColor]) 
+      : 'transparent'};
     display: flex;
     align-items: center;
     justify-content: center;
