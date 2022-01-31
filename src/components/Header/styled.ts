@@ -12,5 +12,14 @@ export default {
     padding: 0 1rem 10rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+
+
+    button {
+      font-size: 1rem;
+      color: #FFF;
+      background: var(--blue-light);
+      
+    }
   `,
 }
