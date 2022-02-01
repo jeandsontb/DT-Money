@@ -13,7 +13,7 @@ FLIX - Esse projeto segue na trilha ignite de rocketseat, se trata de sistema de
 ### Web
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="Flix" title="#Flix" src="" width="400px">
+  <img alt="Flix" title="#Flix" src="https://raw.githubusercontent.com/jeandsontb/DT-Money/main/screen/dtmoney.png" width="400px">
 </p>
 
 ## 🛠 Tecnologias
