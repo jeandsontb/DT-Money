@@ -8,7 +8,7 @@
 
 ## 💻 Sobre o Projeto
 
-FLIX - Esse projeto segue na trilha ignite de rocketseat, se trata de sistema de gerenciamento de gastos.
+DT Money - Esse projeto segue na trilha ignite de rocketseat, se trata de sistema de gerenciamento de gastos.
 
 ### Web
 
@@ -32,7 +32,13 @@ As seguintes ferramentas foram usadas na construção do projeto:
 ```bash
 
 # Basta clonar o repositório e abrir o arquivo index.html no seu navegador
-$ git clone https://github.com/jeandsontb/Desafio-Frontend.git
+$ git clone https://github.com/jeandsontb/DT-Money.git
+
+# Instalar as dependências com o comando
+  npm install ou yarn
+
+# Startar a aplicação
+  npm run start ou yarn start
 
 ```
 
