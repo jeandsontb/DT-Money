@@ -5,12 +5,15 @@ import { GlobalStyle } from "./styles/GlobalStyles";
 import { Header } from './components/Header';
 import { Dasboard } from "./components/Dasboard";
 import { NewTransactionModal } from "./components/NewTransactionModal";
+import { TransactionProvider } from "./transactionsContext";
+
+
 
 Modal.setAppElement('#root');
 
 function App() {
 
-  const [ isNewTransactionModalOpen, setIsNewTransactionModalOpen ] = useState(false);
+  const [ isNewTransactionModalOpen, setIsNewTransactionModalOpen ] = useState(false);  
 
   const handleOpenTransactionModal = () => {
     setIsNewTransactionModalOpen(true);
@@ -21,7 +24,7 @@ function App() {
   } 
 
   return (
-    <React.Fragment>
+    <TransactionProvider>
       <GlobalStyle />
       <Header onOpenTransactionModal={handleOpenTransactionModal}/>
       <Dasboard />
@@ -30,7 +33,7 @@ function App() {
         isOpen={isNewTransactionModalOpen}
         onRequestClose={handleCloseTransactionModal}
       />
-    </React.Fragment>
+    </TransactionProvider>
   );
 }
 
