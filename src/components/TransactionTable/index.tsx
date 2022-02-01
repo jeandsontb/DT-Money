@@ -1,10 +1,9 @@
-import { useContext } from 'react';
-import { TransactionContext } from '../../transactionsContext';
+import { useTransactions } from '../../hooks/useTransactions';
 import S from './styled';
 
 const TransactionTable = () => {
 
-  const transaction = useContext(TransactionContext);
+  const {transactions} = useTransactions();
 
   return (
     <S.Container>
@@ -19,7 +18,7 @@ const TransactionTable = () => {
         </thead>
 
         <tbody>
-          {transaction.map(tr => (
+          {transactions.map(tr => (
             <tr key={tr.id}>
               <td>{tr.title}</td>
               <td className={tr.type} >

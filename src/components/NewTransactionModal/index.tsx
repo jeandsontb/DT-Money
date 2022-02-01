@@ -5,7 +5,8 @@ import S from './styled';
 import closeImg from '../../assets/close.svg';
 import incomeImg from '../../assets/income.svg';
 import outcomeImg from '../../assets/outcome.svg';
-import { api } from '../../services/api';
+import { useTransactions } from '../../hooks/useTransactions';
+
 
 interface newTransactionModalProps {
   isOpen: boolean;
@@ -14,22 +15,28 @@ interface newTransactionModalProps {
 
 const NewTransactionModal = ({isOpen, onRequestClose}: newTransactionModalProps) => {
 
+  const {createTransaction} = useTransactions();
+
   const [ type, setType ] = useState('deposit');
   const [ title, setTitle ] = useState('');
-  const [ value, setValue ] = useState(0);
+  const [ amount, setAmount ] = useState(0);
   const [ category, setCategory ] = useState('');
 
-  const handleCreateNewTransaction = (event: FormEvent) => {
+  const handleCreateNewTransaction = async (event: FormEvent) => {
     event.preventDefault();
-    const data = {
-      type,
+    
+    await createTransaction({
       title,
-      value,
-      category
-    };
+      amount,
+      category,
+      type
+    });
 
-    api.post('/transactions', data);
-
+    setTitle('');
+    setAmount(0);
+    setCategory('');
+    setType('deposit');
+    onRequestClose();
   }
 
   return (
@@ -56,8 +63,8 @@ const NewTransactionModal = ({isOpen, onRequestClose}: newTransactionModalProps)
         <input 
           type="number"
           placeholder='Valor'
-          value={value}
-          onChange={(e) => setValue(Number(e.target.value))}
+          value={amount}
+          onChange={(e) => setAmount(Number(e.target.value))}
         /> 
 
         <S.TransactionTypeContainer>
@@ -78,7 +85,7 @@ const NewTransactionModal = ({isOpen, onRequestClose}: newTransactionModalProps)
             activeColor="red"
           >
             <img src={outcomeImg} alt="Saída" />
-            <span>Entrada</span>
+            <span>Saída</span>
           </S.RadioBox>
         </S.TransactionTypeContainer>  
 
